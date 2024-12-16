@@ -1,7 +1,7 @@
 import streamlit as st
 
-DEFAULT_PAGE = [st.Page('pages/login.py')]
-AUTH_PAGES = [st.Page('pages/records_get.py'),st.Page('pages/add_records.py')]
+DEFAULT_PAGE = [st.Page('pages/login.py',title='Login')]
+AUTH_PAGES = [st.Page('pages/records_get.py',title='Build Reports'),st.Page('pages/add_records.py',title='Add Entries')]
 
 
 def logout():

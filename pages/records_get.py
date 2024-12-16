@@ -1,5 +1,6 @@
 import streamlit as st
 import requests
+from fields_describe import fields_describe
 
 st.title("Choose Salesforce Item")
 
@@ -46,19 +47,33 @@ def get_fields():
         api_service = f"/services/data/v62.0/sobjects/{selected_object}/describe"
         request_body = call_api_service(api_service)
         result = requests.get(request_body.get('endpoint'),headers=request_body.get('headers'))
-        field_description = []
-        for i in result.json().get('fields'):
-            field_description.append(i.get('name'))
-        return field_description
+        return result.json().get('fields')
+        
     except Exception as e:
         st.error(e)
 
+def get_field_names(fields):
+    return fields_describe.get_field_names(fields)
+
+def get_fields_properties(fields):
+    return True
+
+st.session_state.object_fields = get_fields()
+
 if selected_object:
-    selected_fields = st.multiselect('Choose Fields',options = get_fields())
+    selected_fields = st.multiselect('Fields to Display',options = get_field_names(st.session_state.object_fields))
 
 st.number_input('Add Limit',min_value=1)
 
+st.write(fields_describe.get_fields_properties(st.session_state.object_fields))
 
-st.button('Go')
+@st.dialog('Filters')
+def add_filters():
+    st.write(get_field_names(st.session_state.object_fields))
+
+if st.button('Add Filters'):
+    add_filters()
+
+
 
 
