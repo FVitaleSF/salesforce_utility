@@ -16,6 +16,9 @@ def authenticate():
         st.session_state.authenticated = True
         st.success('You succesfully logged in!')
 
+        if 'endpoint' not in st.session_state:
+            st.session_state.endpoint = params.endpoint
+
     except Exception as e:
         st.session_state.authenticated = False
         st.error(f"An error occurred {e}")

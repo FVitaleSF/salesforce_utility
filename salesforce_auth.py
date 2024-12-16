@@ -4,9 +4,16 @@ import streamlit as st
 class salesforce_auth:
 
     def __init__(self, sf_domain, client_id, secret):
-        self._sf_domain = sf_domain  
+        self._sf_domain = sf_domain
         self._client_id = client_id
         self._secret = secret
+        self.endpoint = self.make_endpoint() 
+    
+    def make_endpoint(self):
+
+        return f"https://{self._sf_domain}.my.salesforce.com"
+
+
 
     def authorize_service(self):
         
@@ -21,10 +28,10 @@ class salesforce_auth:
             "grant_type": "client_credentials"
         }
 
-        end_point = f"https://{self._sf_domain}.my.salesforce.com/services/oauth2/token"
         try:
-
-            response = requests.post(end_point, data=body, headers=headers)
+            
+            auth_endpoint = f"{self.endpoint}/services/oauth2/token"
+            response = requests.post(auth_endpoint, data=body, headers=headers)
             response.raise_for_status()  
             access_token = response.json().get("access_token")
 

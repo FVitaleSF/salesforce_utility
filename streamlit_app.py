@@ -1,7 +1,7 @@
 import streamlit as st
 
 DEFAULT_PAGE = [st.Page('pages/login.py')]
-AUTH_PAGES = [st.Page('pages/records_get.py')]
+AUTH_PAGES = [st.Page('pages/records_get.py'),st.Page('pages/add_records.py')]
 
 
 def logout():
@@ -20,8 +20,6 @@ if 'access_token' not in st.session_state:
 if st.session_state.authenticated:
     display_pages = AUTH_PAGES.copy()
     st.sidebar.button('Logout',on_click=logout)
-
-    
 
 
 pg = st.navigation(display_pages,position="sidebar")
