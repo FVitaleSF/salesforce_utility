@@ -56,7 +56,7 @@ def get_field_names(fields):
     return fields_describe.get_field_names(fields)
 
 def get_fields_properties(fields):
-    return True
+    return fields_describe.get_fields_properties(fields)
 
 st.session_state.object_fields = get_fields()
 
@@ -65,14 +65,6 @@ if selected_object:
 
 st.number_input('Add Limit',min_value=1)
 
-st.write(fields_describe.get_fields_properties(st.session_state.object_fields))
-
-@st.dialog('Filters')
-def add_filters():
-    st.write(get_field_names(st.session_state.object_fields))
-
-if st.button('Add Filters'):
-    add_filters()
 
 
 
